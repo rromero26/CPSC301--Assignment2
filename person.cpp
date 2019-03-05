@@ -5,27 +5,75 @@
 
 using namespace std;
 
-Person();
+Person::Person(){
+  firstName = "  N/A  ";
+  lastName = " ";
+  employeeID = 0;
+  companyName = "  N/A  ";
+  hoursWorked = 0.0;
+  payRate = 0.0;
+};
 
  //---------------------------------------------------------------
-void   setFirstName(string fName);
-string getFirstName();
+void Person::setFirstName(string fName){
+  firstName = fName;
+}
+string Person::getFirstName(){
+  return firstName;
+}
  //---------------------------------------------------------------
-void   setLastName(string lName);
-string getLastName();
+void Person::setLastName(string lName){
+  lastName = lName;
+}
+string Person::getLastName(){
+  return lastName;
+}
  //---------------------------------------------------------------
-void   setEmployeeId(int id);
-int    getEmployeeId();
+void Person::setEmployeeId(int id){
+  employeeID = id;
+}
+int Person::getEmployeeId(){
+  return employeeID;
+}
  //---------------------------------------------------------------
-void   setCompanyName(string coName);
-string getCompanyName();
+void Person::setCompanyName(string coName){
+  companyName = coName;
+}
+string Person::getCompanyName(){
+  return companyName;
+}
  //---------------------------------------------------------------
-void   setPayRate(float rate);
-float  getPayRate();
+void Person::setPayRate(float rate){
+  payRate = rate;
+}
+float Person::getPayRate(){
+  return payRate;
+}
  //---------------------------------------------------------------
-void   setHoursWorked(float hours);
-float  getHoursWorked();
+void Person::setHoursWorked(float hours){
+  hoursWorked = hours;
+};
+float Person::getHoursWorked(){
+  return hoursWorked;
+};
  //---------------------------------------------------------------
-float  totalPay();
+float Person::totalPay(){
+  return (getPayRate() * hoursWorked())
+}
  //---------------------------------------------------------------
-string fullName();
+string Person::fullName(){
+  return (getFirstName() + " " + getLastName())
+}
+
+TYPE readData(---){
+
+}
+TYPE getCompanies(---){
+
+}
+TYPE printHighestPaid(---){
+
+}
+TYPE seporateAndSave(---){
+  
+}
