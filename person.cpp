@@ -59,9 +59,9 @@ float Person::getHoursWorked(){
 };
  //---------------------------------------------------------------
 float Person::totalPay(){
-  return (getPayRate() * hoursWorked())
+  return (getPayRate() * getHoursWorked());
 };
  //---------------------------------------------------------------
 string Person::fullName(){
-  return (getFirstName() + " " + getLastName())
+  return (getFirstName() + " " + getLastName());
 };

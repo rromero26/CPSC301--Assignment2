@@ -4,16 +4,16 @@
 #include <vector>
 #include <stdlib.h>
 #include <iostream>
-
+#include <iomanip>
 using namespace std;
 
 //-------------FUNCTIONS--------------------------------------------------------
-void readData(string myString = "input.txt", vector& myVect){
+void readData(string myString, vector<Person>  &myVect){
   fstream myFile;                         //opens file
   myFile.open(myString);
 
   if(!myFile) {                           //check if file open properly
-    cout << "Error: data.txt could not open. Closing Program." << endl;
+    cout << "Error: input.txt could not open. Closing Program." << endl;
     exit(1);
   }
 
@@ -39,14 +39,14 @@ void readData(string myString = "input.txt", vector& myVect){
     myVect[i].setCompanyName(coName);
     myVect[i].setPayRate(rate);
     myVect[i].setHoursWorked(hours);
-    myVect.push_back(Person);
+    myVect.push_back(Person());
     i++;
     }
 
     myFile.close();
 };
 //---------------------------------------------------------------
-void getCompanies(vector& EmployeeVect, vector& myCompanyVect){
+void getCompanies(vector<Person> &EmployeeVect, vector<string> &myCompanyVect){
   int counter = 0;
 
   while (counter < EmployeeVect.size()){
@@ -55,27 +55,38 @@ void getCompanies(vector& EmployeeVect, vector& myCompanyVect){
   }
 };
 //---------------------------------------------------------------
-TYPE printHighestPaid(---){
-  int counter = 0;
+void printHighestPaid(vector<Person> &EmployeeVect){
+  int    i = 0;
+  int    index = 0;
+  float  currentHighest = 0;
 
-  while(/* CONDITION */){
-    //CODE
+  while(i < EmployeeVect.size()){
+    if(EmployeeVect[i].totalPay() > currentHighest){
+      currentHighest = EmployeeVect[i].totalPay();
+      index = i;
+    }
+    i++;
   }
+
+  cout << "Highest paid: " << EmployeeVect[index].fullName() << endl;
+  cout << "Employee ID: " << EmployeeVect[index].getEmployeeId() << endl;
+  cout << "Employer: " << EmployeeVect[index].getCompanyName() << endl;
+  cout << "Total Pay: $" << fixed << setprecision(2) << currentHighest;
 };
 //---------------------------------------------------------------
-TYPE seporateAndSave(---){
-
+void seporateAndSave(vector<Person> &EmployeeVect){
+  //CODE
 };
 //-----------------------END OF FUNCTIONS--------------------------------------
 main(){
-  vector <Person> employees = {};
+  vector <Person> employees;
   vector <string> companyNames;
 
   readData("input.txt", employees);
 
   getCompanies(employees, companyNames);
 
-
+  printHighestPaid(employees);
 
   return 0;
 }
