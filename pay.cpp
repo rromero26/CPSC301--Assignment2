@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <algorithm>
 #include <stdlib.h>
 #include <iostream>
 #include <iomanip>
@@ -9,6 +10,9 @@ using namespace std;
 
 //-------------FUNCTIONS--------------------------------------------------------
 void readData(string myString, vector<Person>  &myVect){
+  cout << "I am in readData" << endl;
+
+
   fstream myFile;                         //opens file
   myFile.open(myString);
 
@@ -26,6 +30,8 @@ void readData(string myString, vector<Person>  &myVect){
   int     i = 0;
         //----- LOOP:Reading/Saving Data ------
   while(!myFile.eof()){
+    cout << "I am in readData: loop" << endl;
+
     myFile >> fName;
     myFile >> lName;
     myFile >> id;
@@ -33,29 +39,40 @@ void readData(string myString, vector<Person>  &myVect){
     myFile >> hours;
     myFile >> rate;
 
+    cout << "I am in readData: loop 2" << endl; //CORE DUMPS AFTER HERE
+
     myVect[i].setFirstName(fName);
     myVect[i].setLastName(lName);
     myVect[i].setEmployeeId(id);
     myVect[i].setCompanyName(coName);
     myVect[i].setPayRate(rate);
     myVect[i].setHoursWorked(hours);
+
     myVect.push_back(Person());
     i++;
     }
 
-    myFile.close();
+  myFile.close();
 };
 //---------------------------------------------------------------
 void getCompanies(vector<Person> &EmployeeVect, vector<string> &myCompanyVect){
+  cout << "I am in getCompany"<< endl;
   int counter = 0;
 
+    //Loops through EmployeeVect and saves company of each member into a vector
   while (counter < EmployeeVect.size()){
     myCompanyVect.push_back(EmployeeVect[counter].getCompanyName());
     counter++;
   }
+
+    //sorts vector THEN erase duplicates to leave vector with only unique company names
+  sort(myCompanyVect.begin(), myCompanyVect.end());
+  myCompanyVect.erase(unique(myCompanyVect.begin(), myCompanyVect.end()), myCompanyVect.end());
 };
 //---------------------------------------------------------------
 void printHighestPaid(vector<Person> &EmployeeVect){
+  cout << "I am in highestPaid" << endl;
+
   int    i = 0;
   int    index = 0;
   float  currentHighest = 0;
@@ -74,19 +91,44 @@ void printHighestPaid(vector<Person> &EmployeeVect){
   cout << "Total Pay: $" << fixed << setprecision(2) << currentHighest;
 };
 //---------------------------------------------------------------
-void seporateAndSave(vector<Person> &EmployeeVect){
+
+/*
+void seporateAndSave(vector<Person> &EmployeeVect, vector<string> &myCompanyVect){
+  int counter = 0;
+
+  //Loop will create all the company.txt files needed
+  while(counter < myCompanyVect.size()){
+    string coName =  myCompanyVect[counter] + ".txt";
+
+    fstream aFile;
+    aFile.open(coName);
+    counter++;
+  }
   //CODE
 };
+*/
+
 //-----------------------END OF FUNCTIONS--------------------------------------
+
+
 main(){
+  cout << "I am in Main, begining" << endl;
+
+
   vector <Person> employees;
   vector <string> companyNames;
 
   readData("input.txt", employees);
+  cout << "I am in Main, after readData" << endl;
 
   getCompanies(employees, companyNames);
+  cout << "I am in Main, after getCompanies" << endl;
 
   printHighestPaid(employees);
+  cout << "I am in Main, after highestPaid" << endl;
+
+  //seporateAndSave(employees, companyNames)
+  //cout << "I am in Main, after seporateAndSave" << endl;
 
   return 0;
 }
