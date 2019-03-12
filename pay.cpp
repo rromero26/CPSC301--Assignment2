@@ -8,11 +8,18 @@
 #include <iomanip>
 using namespace std;
 
-//-------------FUNCTIONS--------------------------------------------------------
+//-------------FUNCTIONS--------------------------------------------------------------------------------------
 void readData(string myString, vector<Person>  &myVect){
   cout << "I am in readData" << endl;
-
-
+      //------ VARIABLES: initalizing ---------------------
+  string  fName;
+  string  lName;
+  int     id;
+  string  coName;
+  float   rate;
+  float   hours;
+  int     i = 0;                          //counter
+        //--- File: Opening and checking -------------------
   fstream myFile;                         //opens file
   myFile.open(myString);
 
@@ -20,17 +27,10 @@ void readData(string myString, vector<Person>  &myVect){
     cout << "Error: input.txt could not open. Closing Program." << endl;
     exit(1);
   }
-
-  string  fName;
-  string  lName;
-  int     id;
-  string  coName;
-  float   rate;
-  float   hours;
-  int     i = 0;
-        //----- LOOP:Reading/Saving Data ------
+        //----- LOOP:Reading/Saving Data -----------------------------
   while(!myFile.eof()){
-    cout << "I am in readData: loop" << endl;
+
+    //cout << "I am in readData: loop" << endl;
 
     myFile >> fName;
     myFile >> lName;
@@ -39,8 +39,9 @@ void readData(string myString, vector<Person>  &myVect){
     myFile >> hours;
     myFile >> rate;
 
-    cout << "I am in readData: loop 2" << endl; //CORE DUMPS AFTER HERE
-
+    //cout << "I am in readData: loop 2" << endl; //CORE DUMPS AFTER HERE
+    Person Temp;
+    myVect.push_back(Temp);
     myVect[i].setFirstName(fName);
     myVect[i].setLastName(lName);
     myVect[i].setEmployeeId(id);
@@ -48,15 +49,15 @@ void readData(string myString, vector<Person>  &myVect){
     myVect[i].setPayRate(rate);
     myVect[i].setHoursWorked(hours);
 
-    myVect.push_back(Person());
+    myVect.push_back(Temp);
     i++;
     }
 
   myFile.close();
 };
-//---------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------
 void getCompanies(vector<Person> &EmployeeVect, vector<string> &myCompanyVect){
-  cout << "I am in getCompany"<< endl;
+  //cout << "I am in getCompany"<< endl;
   int counter = 0;
 
     //Loops through EmployeeVect and saves company of each member into a vector
@@ -69,7 +70,7 @@ void getCompanies(vector<Person> &EmployeeVect, vector<string> &myCompanyVect){
   sort(myCompanyVect.begin(), myCompanyVect.end());
   myCompanyVect.erase(unique(myCompanyVect.begin(), myCompanyVect.end()), myCompanyVect.end());
 };
-//---------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------
 void printHighestPaid(vector<Person> &EmployeeVect){
   cout << "I am in highestPaid" << endl;
 
@@ -88,10 +89,9 @@ void printHighestPaid(vector<Person> &EmployeeVect){
   cout << "Highest paid: " << EmployeeVect[index].fullName() << endl;
   cout << "Employee ID: " << EmployeeVect[index].getEmployeeId() << endl;
   cout << "Employer: " << EmployeeVect[index].getCompanyName() << endl;
-  cout << "Total Pay: $" << fixed << setprecision(2) << currentHighest;
+  cout << "Total Pay: $" << fixed << setprecision(2) << currentHighest << endl;
 };
-//---------------------------------------------------------------
-
+//----------------------------------------------------------------------------------------------------------
 /*
 void seporateAndSave(vector<Person> &EmployeeVect, vector<string> &myCompanyVect){
   int counter = 0;
@@ -105,15 +105,18 @@ void seporateAndSave(vector<Person> &EmployeeVect, vector<string> &myCompanyVect
     counter++;
   }
   //CODE
+
+  fixed << setprecision(35) <<  //fName
+  fixed << setprecision(25) <<  //lName
+  fixed << setprecision(2) <<   //money
 };
 */
 
-//-----------------------END OF FUNCTIONS--------------------------------------
+//-----------------------END OF FUNCTIONS/ MAINS STARTS HERE--------------------------------------
 
 
 main(){
   cout << "I am in Main, begining" << endl;
-
 
   vector <Person> employees;
   vector <string> companyNames;
