@@ -27,8 +27,8 @@ void readData(string myString, vector<Person>  &myVect){
     exit(1);
   }
         //----- LOOP:Reading/Saving Data -----------------------------
+  myFile >> fName;
   while(!myFile.eof()){
-    myFile >> fName;
     myFile >> lName;
     myFile >> id;
     myFile >> coName;
@@ -45,6 +45,7 @@ void readData(string myString, vector<Person>  &myVect){
     myVect[i].setHoursWorked(hours);
 
     myVect.push_back(Temp);
+    myFile >> fName;                   //use to check if reach (END OF FILE) for next loop
     i++;
     }
 
