@@ -10,7 +10,6 @@ using namespace std;
 
 //-------------FUNCTIONS--------------------------------------------------------------------------------------
 void readData(string myString, vector<Person>  &myVect){
-  cout << "I am in readData" << endl;
       //------ VARIABLES: initalizing ---------------------
   string  fName;
   string  lName;
@@ -29,9 +28,6 @@ void readData(string myString, vector<Person>  &myVect){
   }
         //----- LOOP:Reading/Saving Data -----------------------------
   while(!myFile.eof()){
-
-    //cout << "I am in readData: loop" << endl;
-
     myFile >> fName;
     myFile >> lName;
     myFile >> id;
@@ -39,7 +35,6 @@ void readData(string myString, vector<Person>  &myVect){
     myFile >> hours;
     myFile >> rate;
 
-    //cout << "I am in readData: loop 2" << endl; //CORE DUMPS AFTER HERE
     Person Temp;
     myVect.push_back(Temp);
     myVect[i].setFirstName(fName);
@@ -57,7 +52,6 @@ void readData(string myString, vector<Person>  &myVect){
 };
 //-----------------------------------------------------------------------------------------------------------
 void getCompanies(vector<Person> &EmployeeVect, vector<string> &myCompanyVect){
-  //cout << "I am in getCompany"<< endl;
   int counter = 0;
 
     //Loops through EmployeeVect and saves company of each member into a vector
@@ -72,12 +66,12 @@ void getCompanies(vector<Person> &EmployeeVect, vector<string> &myCompanyVect){
 };
 //-----------------------------------------------------------------------------------------------------------
 void printHighestPaid(vector<Person> &EmployeeVect){
-  cout << "I am in highestPaid" << endl;
-
+        //------ VARIABLES: initalizing ---------------------
   int    i = 0;
   int    index = 0;
   float  currentHighest = 0;
 
+        //------LOOP: saves an index of highest payed employee------
   while(i < EmployeeVect.size()){
     if(EmployeeVect[i].totalPay() > currentHighest){
       currentHighest = EmployeeVect[i].totalPay();
@@ -85,53 +79,55 @@ void printHighestPaid(vector<Person> &EmployeeVect){
     }
     i++;
   }
-
+        //---- COUT: highest payed employee's info ----
   cout << "Highest paid: " << EmployeeVect[index].fullName() << endl;
   cout << "Employee ID: " << EmployeeVect[index].getEmployeeId() << endl;
   cout << "Employer: " << EmployeeVect[index].getCompanyName() << endl;
   cout << "Total Pay: $" << fixed << setprecision(2) << currentHighest << endl;
 };
 //----------------------------------------------------------------------------------------------------------
-/*
-void seporateAndSave(vector<Person> &EmployeeVect, vector<string> &myCompanyVect){
-  int counter = 0;
+void seporateAndSave(vector<Person> &EmployeeVect, vector<string> &myCompanyVect)
+{
+    for(int i = 0; i < myCompanyVect.size(); i++)
+    {
+        string coFilenametxt = myCompanyVect[i] + ".txt";         //create string of compnay name + .txt
+        ofstream tempFile;
+        tempFile.open(coFilenametxt);                             //create company file and opens
+        tempFile << coFilenametxt << endl;
+        tempFile << "----------------------------------------------------------------------" << endl;
 
-  //Loop will create all the company.txt files needed
-  while(counter < myCompanyVect.size()){
-    string coName =  myCompanyVect[counter] + ".txt";
-
-    fstream aFile;
-    aFile.open(coName);
-    counter++;
-  }
-  //CODE
-
-  fixed << setprecision(35) <<  //fName
-  fixed << setprecision(25) <<  //lName
-  fixed << setprecision(2) <<   //money
-};
-*/
+        float theTotal = 0.0;
+        for(int j = 0; j < EmployeeVect.size(); j++)
+        {
+            if(EmployeeVect[j].getCompanyName() == myCompanyVect[i])
+            {
+                tempFile << setw(14) << left << EmployeeVect[j].getFirstName();
+                tempFile << setw(14) << left << EmployeeVect[j].getLastName();
+                tempFile << setw(4) << left << EmployeeVect[j].getEmployeeId();
+                tempFile << setw(12) << EmployeeVect[j].getCompanyName() << " ";
+                tempFile << "$" << fixed << setprecision(2) << EmployeeVect[j].totalPay() << endl;
+                theTotal = theTotal + EmployeeVect[j].totalPay();
+            }
+        }
+        tempFile << endl << "Total: $" << theTotal;
+        tempFile.close();
+    }
+}
 
 //-----------------------END OF FUNCTIONS/ MAINS STARTS HERE--------------------------------------
 
-
 main(){
-  cout << "I am in Main, begining" << endl;
 
   vector <Person> employees;
   vector <string> companyNames;
 
   readData("input.txt", employees);
-  cout << "I am in Main, after readData" << endl;
 
   getCompanies(employees, companyNames);
-  cout << "I am in Main, after getCompanies" << endl;
 
   printHighestPaid(employees);
-  cout << "I am in Main, after highestPaid" << endl;
 
-  //seporateAndSave(employees, companyNames)
-  //cout << "I am in Main, after seporateAndSave" << endl;
+  seporateAndSave(employees, companyNames);
 
   return 0;
 }
