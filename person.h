@@ -5,31 +5,27 @@
 #include <string>
 using namespace std;
 
+
 class Person
 {
 private:
-    string firstName;
     string lastName;
-    int    employeeID;
-    string companyName;
-    float  hoursWorked;
+    string firstName;
     float  payRate;
-
+    float  hoursWorked;
 public:
     Person();
-    void   setFirstName(string fName);
-    string getFirstName();
-    void   setLastName(string lName);
+    Person(string fName, string lName, float rate, float hours);
+
+    void setLastName(string lName);
     string getLastName();
-    void   setEmployeeId(int id);
-    int    getEmployeeId();
-    void   setCompanyName(string coName);
-    string getCompanyName();
-    void   setPayRate(float rate);
-    float  getPayRate();
-    void   setHoursWorked(float hours);
-    float  getHoursWorked();
-    float  totalPay();
+    void setFirstName(string fName);
+    string getFirstName();
+    void setPayRate(float rate);
+    float getPayRate();
+    void setHoursWorked(float hours);
+    float getHoursWorked();
+    float totalPay();
     string fullName();
 };
 #endif // end person.h
